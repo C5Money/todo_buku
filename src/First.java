@@ -32,47 +32,52 @@ public class First {
                 case 1 -> addingTask(sc, tasks);
                 case 2 -> viewingAllTasks(tasks);
                 case 3 -> markAsCompleted();
-                case 4 -> deleteTask();
+                case 4 -> deleteTask(sc, tasks);
                 case 5 -> {
                     exitToDo();
                     return;
                 }
             }
-
-            System.out.println("end end");
-            break;
         }
     }
 
     public static void addingTask(Scanner sc, HashMap<Integer, String> tasks) {
         System.out.println("Add a number: ");
         int taskNumber = sc.nextInt();
+        sc.nextLine();
 
         System.out.println("Add a task: ");
-        String task = sc.next();
+        String task = sc.nextLine();
 
-        tasks.put(taskNumber, task);
-
-        toDoMenu(sc);
-//        return tasks;
+        if (tasks.containsKey(taskNumber)) {
+            System.out.println("❌ Tasknumber " + taskNumber + " already exists.\n");
+        } else {
+            tasks.put(taskNumber, task);
+            System.out.println("✅ Tasknumber " + taskNumber + " added.\n");
+        }
     }
 
     public static void viewingAllTasks(HashMap<Integer,String> tasks) {
+        System.out.println("These are all your tasks: \n");
 
-        System.out.println("View all tasks");
-        System.out.println(tasks);
+        for (HashMap.Entry<Integer, String> entry : tasks.entrySet()) {
+            System.out.println(entry.getKey() + ". " + entry.getValue());
+        }
     }
 
     public static void markAsCompleted(){
         System.out.println("Mark all tasks as completed");
     }
 
-    public static void deleteTask(){
-        System.out.println("Delete a task");
+    public static void deleteTask(Scanner sc, HashMap<Integer,String> tasks) {
+        System.out.println("Delete a task by entering the number of the task: ");
+        tasks.remove(sc.nextInt());
+        System.out.println("Task deleted.");
     }
 
     public static void exitToDo(){
-        System.out.println("Exit the To-do app");
+        System.out.println("Have a nice day!");
+
     }
 }
 
