@@ -3,6 +3,7 @@ package com.vince.todo.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -10,7 +11,9 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private static final String SECRET = "mijn-geheime-sleutel-todo-app-2024";
+    @Value("${jwt.secret}")
+    private String secret;
+
     private static final long EXPIRATION_MS = 24 * 60 * 60 * 1000L;
 
     public String generateToken(String email) {
@@ -18,7 +21,7 @@ public class JwtUtil {
                 .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_MS))
-                .signWith(SignatureAlgorithm.HS256, SECRET)
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
 
@@ -37,7 +40,7 @@ public class JwtUtil {
 
     private Claims getClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(SECRET)
+                .setSigningKey(secret)
                 .parseClaimsJws(token)
                 .getBody();
     }

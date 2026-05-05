@@ -11,4 +11,5 @@ frontend/dist/
 out/
 
 # Env
+.env
 *.env
