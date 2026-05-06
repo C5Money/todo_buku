@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import api from '../api/api';
 
 export default function LoginPage() {
@@ -7,6 +7,8 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+  const registered = location.state?.registered;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +25,7 @@ export default function LoginPage() {
   return (
     <div className="container">
       <h2>Inloggen</h2>
+      {registered && <p className="success">Registratie geslaagd! Je kunt nu inloggen.</p>}
       <form onSubmit={handleSubmit}>
         <input
           className="input"

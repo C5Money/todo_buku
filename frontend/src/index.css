@@ -200,6 +200,13 @@ body {
   margin-bottom: 10px;
 }
 
+/* Success */
+.success {
+  color: #27ae60;
+  font-size: 0.88rem;
+  margin-bottom: 10px;
+}
+
 /* Auth forms */
 form {
   display: flex;
