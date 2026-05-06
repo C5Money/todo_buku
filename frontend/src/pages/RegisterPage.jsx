@@ -13,7 +13,7 @@ export default function RegisterPage() {
     setError('');
     try {
       await api.post('/auth/register', { email, password });
-      navigate('/login');
+      navigate('/login', { state: { registered: true } });
     } catch (err) {
       setError(err.response?.data?.message || 'Registreren mislukt');
     }
